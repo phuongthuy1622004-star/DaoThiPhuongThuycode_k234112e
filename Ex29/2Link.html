@@ -1,0 +1,69 @@
+<html>
+<head>
+    <title>2Link - Đào Thị Phương Thùy</title>
+</head>
+<body>    
+    <img id="map" src="images/Map.jpg" onclick="clickMap(event)" onmousemove="showRegion(event)" onmouseleave="hideRegion()">
+    <canvas id="canvas" style="display:none"></canvas>
+    <div id="tooltip" style="position:absolute; background:black; color:white; padding:5px; display:none; pointer-events:none;"></div>
+    
+    <script>
+        const map = document.getElementById('map');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        map.onload = () => {
+            canvas.width = map.width;
+            canvas.height = map.height; 
+            ctx.drawImage(map, 0, 0);
+        };
+        
+        function getRegion(x, y) {
+            const [r, g, b] = ctx.getImageData(x, y, 1, 1).data;
+            
+            if (r > 200 && g < 100 && b > 200) return {name: 'West Region', url: 'West Region.html'};
+            if (r > 200 && g < 100 && b < 100) return {name: 'Midwest Region', url: 'Midwest Region.html'};
+            if (r < 100 && g < 100 && b > 200) return {name: 'Northeast Region', url: 'Northeast Region.html'};
+            if (r < 100 && g > 200 && b < 100) return {name: 'South Region', url: 'South Region.html'};
+            return null;
+        }
+        
+        function showRegion(e) {
+            const rect = map.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            
+            const region = getRegion(x, y);
+            const tooltip = document.getElementById('tooltip');
+            
+            if (region) {
+                tooltip.textContent = region.name;
+                tooltip.style.display = 'block';
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY - 30 + 'px';
+            } else {
+                tooltip.style.display = 'none';
+            }
+        }
+        
+        function hideRegion() {
+            document.getElementById('tooltip').style.display = 'none';
+        }
+        
+        function clickMap(e) {
+            const rect = map.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            
+            const region = getRegion(x, y);
+            
+            if (region) {
+                const a = document.createElement('a');
+                a.href = region.url;
+                a.target = 'my_container';
+                a.click();
+            }
+        }
+    </script>
+</body>
+</html>
