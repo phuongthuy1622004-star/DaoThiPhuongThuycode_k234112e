@@ -1,0 +1,22 @@
+p{
+    color:purple;
+}
+
+h4{
+    font-style: arial;
+}
+
+hr{
+    border:0; 
+    height: 0.2em; 
+    background:grey;
+}
+ol {
+    color: grey;
+}
+
+a:hover {
+text-decoration: underline;
+color: red;
+background-color: #ccffcc
+}
