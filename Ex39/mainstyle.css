@@ -1,0 +1,19 @@
+#customers {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#customers td, #customers th
+{
+    border:1px solid;
+}
+
+#customers th {
+    text-align: left;
+    background-color: green;
+    color: white;
+}
+
+#customers tr.alt td {
+    background-color: #A7C942;
+}
