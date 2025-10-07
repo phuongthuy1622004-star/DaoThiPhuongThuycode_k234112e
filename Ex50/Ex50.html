@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <title> Ex50 - Đào Thị Phương Thùy </title>
+    </head>
+    <body style="background-color:aqua;">
+        <form> 
+            <p align="center"> <img src="images/DeLong.jpg" width="25%" h="auto" </p>
+            <h2>Travel Expense Report</h2>
+            <hr style="height: 0.2em; background:black;">
+            <label for="First">1) First Name: </label>
+            <input type="text" name="First" id="First"/>
+            <label for="Last">Last Name: </label>
+            <input type="text" name="Last" id="Last"/>
+            <p/>	
+            <label for="Social">2) Social Security Number: </label>
+            <input type="text" name="Social" id="Social"/>
+            <p/>	
+            <label>3) Department: </label>
+            <select name="Department">
+                <option value="Accounting"> Accounting </option>
+                <option value="HR"> HR </option>
+                <option value="Marketing"> Marketing </option>
+                <option value="Procurement"> Procurement </option>
+            </select>
+            <p/>
+            <label for="Describe">4) Describe the purpose of your trip. </label>
+            <br/> 
+            <textarea name="Describe" id="Describe" rows="5" cols="50"></textarea>
+            <p/>        
+            <label>5) Itemize your travel expenses </label>
+            <br/> 
+            <table id="expenseTable" border="1">
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+            </tr>
+            <tr>
+                <td><input type="date" style="width:200px"></td>
+                <td><input type="text" style="width:400px"></td>
+                <td>
+                    <select style="width:200px">
+                    <option>Meal</option>
+                    <option>Accomodation</option>
+                    <option>Others</option>
+                    </select>
+                </td>
+                <td><input type="text" style="width:150px"></td>
+            </tr>
+            <tr>
+                <td><input type="date" style="width:200px"></td>
+                <td><input type="text" style="width:400px"></td>
+                <td>
+                    <select style="width:200px">
+                    <option>Meal</option>
+                    <option>Accomodation</option>
+                    <option>Others</option>
+                    </select>
+                </td>
+                <td><input type="text" style="width:150px"></td>
+            </tr>
+            <tr>
+                <td><input type="date" style="width:200px"></td>
+                <td><input type="text" style="width:400px"></td>
+                <td>
+                    <select style="width:200px">
+                    <option>Meal</option>
+                    <option>Accomodation</option>
+                    <option>Others</option>
+                    </select>
+                </td>
+                <td><input type="text" style="width:150px"></td>
+            </tr>
+            <tr>
+                <td><input type="date" style="width:200px"></td>
+                <td><input type="text" style="width:400px"></td>
+                <td>
+                    <select style="width:200px">
+                    <option>Meal</option>
+                    <option>Accomodation</option>
+                    <option>Others</option>
+                    </select>
+                </td>
+                <td><input type="text" style="width:150px"></td>
+            </tr>
+            </table>
+            <p/> 
+            <label>6) Have you submitted your receipts? </label>
+            <input type="radio" name="Have" id="r1" value="Yes"/> <label for="r1"> Yes </label>
+            <input type="radio" name="Have" id="r2" value="No"/> <label for="r2"> No </label>
+            <p/>
+            <button type="submit" name="submit" id="submit">Submit travel expenses</button>
+            <button type="reset" name="reset" id="reset">Reset</button>
+            <p/>
+            <p>Questions? Contact Debbie Larson in Accounting (ext. 2150).</p>
+        </form>
+    </body>
+</html>
