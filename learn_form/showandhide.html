@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title> Show/Hide - Đào Thị Phương Thùy </title>
+        <script> 
+            function hide_image()
+            {
+                //step 1: get image element (cách dễ nhất thông qua id)
+                img_taylor=document.getElementById("taylor123")
+                //step 2: hide image (using stype display -> none)
+                img_taylor.style="display:none"
+            }
+            function show_image()
+            {
+                //step 1: get image element (cách dễ nhất thông qua id)
+                img_taylor=document.getElementById("taylor123")
+                //step 2: show image (using stype display -> none)
+                img_taylor.style="display:block"                
+            }
+        </script>
+    </head>
+    <body>
+        <form name="myform">
+            <input type="radio" name="myimg" id="img1" onchange="show_image()"/>
+            <label for ="img1">Show Image</label>
+            <br/>
+            <input type="radio" name="myimg" id="img2" onchange="hide_image()"/>
+            <label for ="img2">Hide Image</label>
+            <br/>
+<!--Muốn truy xuất giá trị của thẻ: CHỈ input (img, .. KHÔNG được) -> vd myform.myimg -->
+            <img src="images/Taylor.PNG" id="taylor123" name="taylor123"
+                style="display:block"/>
+        </form>
+    </body>
+</html>
