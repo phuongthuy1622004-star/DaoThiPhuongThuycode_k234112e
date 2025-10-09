@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title> Contact page - Đào Thị Phương Thùy </title>
+    </head>
+    <body>
+        <form name="my_form">
+            <h4>Contact the editorial office</h4>
+            <table> 
+                <tr> 
+                    <td colspan="2">
+                        <label for=fullname> Full name </label>
+                        <br/>
+                        <input type="text" name="fullname" id="fullname">
+                    </td>
+                </tr>
+                <tr> 
+                    <td>
+                        <label for=email> Email </label>
+                        <br/>
+                        <input type="email" name="email" id="email">
+                    </td>
+                    <td rowspan="2" valign="top">
+                        <label>Send to </label>
+                        <br/>
+                            <select name="send">
+                                <option value="Editorial band"> Editorial band</option>
+                                <option value="News Department"> News Department </option>
+                                <option value="Board of Perspectives"> Board of Perspectives </option>
+                                <option value="World Board"> World Board </option>
+                                <option value="Business Department"> Business Department </option>
+                            </select>
+                    </td>
+                </tr>
+                <tr> 
+                    <td>
+                        <label for=title> Title </label>
+                        <br/>
+                        <input type="text" name="title" id="title">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label for="Content"> Content </label>
+                        <br/>
+                        <textarea id="Content" name="Content" rows="10" cols="50"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit" style="background-color: red; color:white">Send</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
