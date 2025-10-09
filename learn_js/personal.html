@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title> Tiêu đề trang </title>
+        <script>
+            function update_name()
+            {
+                myform.full_name.value = 
+                myform.first_name.value +" "+ 
+                myform.middle_name.value +" "+ 
+                myform.last_name.value
+                //myform.full_name_td.value=myform.full_name.value
+                full_name_td=document.getElementById("full_name_td")
+                full_name_td.innerText=myform.full_name.value
+            }
+        </script>
+    </head>
+    <body>
+        <form name ="myform">
+            <table> 
+                <tr>
+                    <td> First Name: </td>
+                    <td>
+<!--truy xuất form -> name, còn document -> id -->
+<!--onchange qua ô khác mới thay đổi, còn oninput realtime (kh tốt vì tốn time xử lý lên server lấy) -->
+                        <input type = "text" name="first_name" id="first_name" oninput="update_name()"/>
+                    </td>
+                </tr>
+                    <td> Middle Name: </td>
+                    <td>
+                        <input type = "text" name="middle_name" id="middle_name" oninput="update_name()"/>
+                    </td>
+                </tr>
+                </tr>
+                    <td> Last Name: </td>
+                    <td>
+                        <input type = "text" name="last_name" id="last_name" oninput="update_name()"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Full Name</td>
+                    <td>
+                        <input type="text" name="full_name" id="full_name"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Full name</td>
+                    <td id="full_name_td">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

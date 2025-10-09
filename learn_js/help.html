@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title> Help - Đào Thị Phương Thùy </title>
+    </head>
+    <body>
+        <h1 id="my_title">Nội dung trang</h1>
+        <div id="my_content"></div>
+<!--kh phải lúc nào script cũng đặt trước body, chưa đọc dữ liệu-->
+        <script type="text/javascript">
+            function set_default()
+            {
+            //?????????????
+                my_title=document.getElementById("my_title")
+                my_title.setAttribute("style","background-color:yellow")
+                my_title.innerText="Learn Java 1"
+                my_content=document.getElementById("my_content")
+                //my_content.innerText="K22411C"
+                my_content.innerHTML="<img src='images/LVB1.jpg'/>"
+            }
+            set_default()
+        </script>
+    </body>
+</html>

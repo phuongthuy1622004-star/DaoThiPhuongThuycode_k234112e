@@ -1,0 +1,44 @@
+<html>
+<head>
+  <title>Contact - Đào Thị Phương Thùy</title>
+  <script type="text/javascript">
+    function saveInfo() {
+    name = document.getElementById("name").value;
+    email = document.getElementById("email").value;
+    result=document.getElementById("result")
+    result.innerHTML="<p>"+name+"</p><p style='color:blue'>"+name+"</p>"
+    //innerText kh chạy
+    // 1. innerText – chỉ hiển thị văn bản thuần (text)
+    // Nó không hiểu hoặc hiển thị thẻ HTML, chỉ hiển thị đúng như chuỗi bạn gán vào.
+    // Dùng khi bạn chỉ muốn in ra chữ, không cần định dạng.
+
+    //2. innerHTML – hiểu và diễn giải mã HTML
+    // Nếu bạn gán chuỗi có thẻ HTML, trình duyệt sẽ hiển thị đúng định dạng HTML.
+    // Dùng khi bạn muốn thêm nội dung có thẻ (ví dụ: <b>, <br>, <i>, <a> …).
+    }
+  </script>
+</head>
+<body>
+  <form name="my_form">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" name="name" id="name"/></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="email" name="email" id="email"/></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;">
+                <button type="button" onclick="saveInfo()">Save Info</button>
+                <button type="reset">Clear</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="result"></td>
+        </tr>
+    </table>
+  </form>
+</body>
+</html>
