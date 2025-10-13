@@ -1,0 +1,16 @@
+
+<html>
+<head>
+    <title>Kết quả</title>
+</head>
+<body>
+    <h1>Thông tin bạn đã gửi</h1>
+    <p>Họ và tên</p>
+    <p id="fullname"></p>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('fullname').textContent = params.get('fullname')
+    </script>
+</body>
+</html>
