@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title> Ex53 - Đào Thị Phương Thùy </title>
+    </head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: center;
+        }
+    </style>
+    <body>
+        <form name="my_form">
+            <table>
+                <tr>
+                    <th>Part number</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Item table</th>
+                </tr>
+                <tr>
+                    <td>C112</td>
+                    <td>Mouse</td>
+                    <td>19.95$</td>
+                    <td>
+                        <input type="number" id="Qty1" name="Qty1" oninput="updatePrice(this, 19.95, 'price_C112')" />
+                    </td>
+                    <td>
+                        <input type="text" id="price_C112" name="price_C112"/>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>B124</td>
+                    <td>Keyboard US</td>
+                    <td>29.95$</td>
+                    <td>
+                        <input type="number" id="Qty2" name="Qty2" oninput="updatePrice(this, 29.95, 'price_B124')"/>
+                    </td>
+                    <td>
+                        <input type="text" id="price_B124" name="price_B124"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>U125</td>
+                    <td>USB KingMax</td>
+                    <td>39.95$</td>
+                    <td>
+                        <input type="number" id="Qty3" name="Qty3" oninput="updatePrice(this, 39.95, 'price_U125')"/>
+                    </td>
+                    <td>
+                        <input type="text" id="price_U125" name="price_U125"/>
+                    </td>
+                </tr>
+            </table>
+                <hr style="height: 0.2em; background-color: black;">
+            <div class="total-container" align="right">
+                Total: <input type="text" id="total" name="total">
+                <button type="button" onclick="sumtotal()">Tổng cộng</button>
+            </div>
+        </form>
+        <script>
+            function updatePrice(input, unitPrice, priceFieldId){
+                document.getElementById(priceFieldId).value=input.value * unitPrice
+            }
+            function sumtotal() {
+            let total = 0;
+            // Lấy tất cả ô có id bắt đầu bằng "price_"
+            const priceFields = document.querySelectorAll('input[id^="price_"]');
+            // Lặp qua từng ô, cộng dồn giá trị
+            priceFields.forEach(field => {
+                total += Number(field.value) || 0;
+            });
+            // Hiển thị kết quả
+            document.getElementById("total").value = total.toFixed(2);
+        }
+        </script>
+    </body>
+</html>
