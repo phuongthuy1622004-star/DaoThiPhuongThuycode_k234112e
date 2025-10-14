@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title> Tiêu đề trang </title>
+        <script type="text/javascript">
+            var p_item={
+                ID:"P01",
+                Name:"Coca",
+                Quantity:15,
+                Price:30,
+                TotalValue:function()
+                {
+                    return this.Quantity*this.Price
+                },
+                Image: "LVB1.jpg"
+            }
+        </script>
+    </head>
+    <body>
+        <form name="my_form">
+            <table border="1">
+                <tr>
+                    <td>ID:</td>
+                    <td id="td_ID"></td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td id="td_Name"></td>
+                </tr>
+                <tr>
+                    <td>Quantity:</td>
+                    <td id="td_Quantity"></td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td id="td_Price"></td>
+                </tr>
+                <tr>
+                    <td>Total Value:</td>
+                    <td id="td_TotalValue"></td>
+                </tr>
+                <tr>
+                    <td>Image:</td>
+                    <td><img id="img_product"></td>
+                </tr>
+            </table>
+            <script type="text/javascript">
+                td_ID.innerText=p_item.ID
+                td_Name.innerText=p_item.Name
+                td_Quantity.innerText=p_item.Quantity
+                td_Price.innerText=p_item.Price
+                td_TotalValue.innerText=p_item.TotalValue()
+                img_product.src="../images/" + p_item.Image
+            </script>
+        </form>
+    </body>
+</html>
