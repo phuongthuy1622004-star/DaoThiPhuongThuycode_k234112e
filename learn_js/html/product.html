@@ -16,6 +16,7 @@
         </script>
     </head>
     <body>
+        <h1>Case truyền dữ liệu vào rồi in ra</h1>
         <form name="my_form">
             <table border="1">
                 <tr>
@@ -40,7 +41,8 @@
                 </tr>
                 <tr>
                     <td>Image:</td>
-                    <td><img id="img_product"></td>
+                    <!-- <td><img id="img_product"></td> -->
+                    <td id="td_image"></td>
                 </tr>
             </table>
             <script type="text/javascript">
@@ -49,7 +51,8 @@
                 td_Quantity.innerText=p_item.Quantity
                 td_Price.innerText=p_item.Price
                 td_TotalValue.innerText=p_item.TotalValue()
-                img_product.src="../images/" + p_item.Image
+                // img_product.src="../images/" + p_item.Image
+                td_image.innerHTML = "<img src='../images/" + p_item.Image + "'/>";
             </script>
         </form>
     </body>

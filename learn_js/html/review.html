@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title> Tiêu đề trang </title>
+        <script type="text/javascript">
+            function show_hide_img(value)
+            {
+                img=document.getElementById("img")
+                img.setAttribute("style", "display:"+value)
+            }
+            function change_color(value)
+            {
+                changecolor=document.getElementById("my_div")
+                changecolor.setAttribute ("style", "background-color:"+value)
+            }
+            function change_Image(value)
+            {
+                changeauthor=document.getElementById("img_author")
+                changeauthor.setAttribute ("src", "../images/"+value)
+            }
+            function ghep_ten()
+            {
+                FullName=document.getElementById("FullName")
+                FullName.innerText=my_form.FirstName.value + my_form.MiddleName.value + my_form.LastName.value
+            }
+            </script>
+    </head>
+    <body>
+        <form name="my_form">
+            <h1>RadioButton_Show and Hide</h1>
+                <input type="radio" name="sex" id="r1" value="Male" onclick="show_hide_img('block')"/> <label for="r1"> Show </label> <br/>
+                <input type="radio" name="sex" id="r2" value="Female" onclick="show_hide_img('none')"/> <label for="r2"> Hide </label> <br/>
+                <img id="img" src="../images/LVB1.jpg" width="10%" h="auto" title="Đây là Google" alt="Hình bị lỗi rồi" style="display:block;"/></p>
+            <h1>Combobox_Change color</h1>
+                <label>Choose Color: </label>
+                <select name="Color" onchange="change_color(value)">
+                    <option value="Pink">Pink</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="BLue">Blue</option>
+                    <option value="Green">Green</option>
+                </select>
+                    <div id="my_div" style="background-color: pink">Đây là thẻ div Nhóm block</div>
+            <h1>Combobox_Change image</h1>
+            <label>Choose Image: </label>
+                <select name="Image" onchange="change_Image(value)")>
+                    <option value="coca.jpg">AuthorA</option>
+                    <option value="fanta.jpg">AuthorB</option>
+                    <option value="pepsi.jpg">AuthorC</option>
+                    <option value="sting.jpg">AuthorD</option>
+                </select>
+                    <img id="img_author" src="../images/coca.jpg" width="10%"/></p>
+            <h1>Ghép tên</h1>
+                <label>FirstName </label><input type="text" id="FirstName" name="FirstName" oninput="ghep_ten()"/></br>
+                <label>MiddleName </label><input type="text" id="MiddleName" name="MiddleName" oninput="ghep_ten()"/></br>
+                <label>LastName </label><input type="text" id="LastName" name="LastName" oninput="ghep_ten()"/></br>
+                <p id="FullName" name="FullName">FullName </p>
+            <h1>RESULT</h1>
+                <form name="frm_customer_input">
+                    <fieldset>
+                    <legend>Customer Input Information: </legend>
+                        <table>
+                            <tr>
+                                <td>Name</td>
+                                <td>
+                                    <input type="text" id="namecus" name="namecus"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>
+                                    <input type="text" id="namecus" name="namecus"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>
+                                    <input type="text" id="namecus" name="namecus"/>
+                                </td>
+                            </tr>
+                    </fieldset>
+      </form>
+    </body>
+</html>
