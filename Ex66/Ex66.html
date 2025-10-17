@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title> - Đào Thị Phương Thùy </title>
+    <script id="studentData" type="text/xml">
+        <student>
+            <id>987456</id>
+            <name>Marie Curie</name>
+            <birthday>7/11/1867</birthday>
+            <gender>Woman</gender>
+        </student>
+    </script>
+    <style type="text/css"> 
+        tbody tr:hover{
+            background-color: Blue;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <table border="1">
+        <tr style="background-color: aquamarine;">
+            <td colspan="2" align="center">Student Information</td>
+        </tr>
+        <tr>
+            <td>Student ID:</td>
+            <td id="td_ID"></td>
+        </tr>
+        <tr>
+            <td>Student Name:</td>
+            <td id="td_Name"></td>
+        </tr>
+        <tr>
+            <td>Birthday:</td>
+            <td id="td_Birthday"></td>
+        </tr>
+        <tr>
+            <td>Gender:</td>
+            <td id="td_Gender"></td>
+        </tr>
+    </table>
+
+    <script>
+        var xmlText = document.getElementById("studentData").innerHTML;
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(xmlText, "text/xml");
+
+        document.getElementById("td_ID").innerText = xmlDoc.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+        document.getElementById("td_Name").innerText = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+        document.getElementById("td_Birthday").innerText = xmlDoc.getElementsByTagName("birthday")[0].childNodes[0].nodeValue;
+        document.getElementById("td_Gender").innerText = xmlDoc.getElementsByTagName("gender")[0].childNodes[0].nodeValue;
+    </script>
+</body>
+</html>
