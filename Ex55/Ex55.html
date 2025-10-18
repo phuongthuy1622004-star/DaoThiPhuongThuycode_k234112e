@@ -40,34 +40,35 @@
             b = parseFloat(document.my_form.b.value);
             c = parseFloat(document.my_form.c.value);
             td_result = document.getElementById("td_result");
-
+            
             if (a == 0) {
                 // Phương trình bậc nhất: bx + c = 0
                 if (b == 0) {
-                    td_result.innerHTML = (c == 0) 
-                        ? '<span style="color:red">Vô số nghiệm</span>'
-                        : '<span style="color:red">Vô nghiệm</span>';
+                    if (c == 0) {
+                        td_result.innerHTML = '<span style="color:red">Vô số nghiệm</span>';
+                    } else {
+                        td_result.innerHTML = '<span style="color:red">Vô nghiệm</span>';
+                    }
                 } else {
-                    x = -c / b;
-                    td_result.innerHTML = `<span style="color:red">x = ${x}</span>`;
+                    var x = -c / b;
+                    td_result.innerHTML = '<span style="color:red">x = ' + x + '</span>';
                 }
                 return;
             }
 
             // Phương trình bậc hai: ax^2 + bx + c = 0
-            delta = b*b - 4*a*c;
+            var delta = b*b - 4*a*c;
 
             if (delta > 0) {
-                x1 = (-b + Math.sqrt(delta)) / (2*a);
-                x2 = (-b - Math.sqrt(delta)) / (2*a);
-                td_result.innerHTML = `<span style="color:red">x1 = ${x1}, x2 = ${x2}</span>`;
+                var x1 = (-b + Math.sqrt(delta)) / (2*a);
+                var x2 = (-b - Math.sqrt(delta)) / (2*a);
+                td_result.innerHTML = '<span style="color:red">x1 = ' + x1 + ', x2 = ' + x2 + '</span>';
             } else if (delta == 0) {
-                x = -b / (2*a);
-                td_result.innerHTML = `<span style="color:red">x = ${x}</span>`;
+                var x = -b / (2*a);
+                td_result.innerHTML = '<span style="color:red">x = ' + x + '</span>';
             } else {
                 td_result.innerHTML = '<span style="color:red">Vô nghiệm</span>';
             }
-
         }
 
         function do_clear() {
