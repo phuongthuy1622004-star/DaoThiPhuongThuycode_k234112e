@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title> Math function - Đào Thị Phương Thùy </title>
+    </head>
+    <body>
+        <form name="my_form">
+        <table>
+            <tr>
+                <td> a: </td>
+                <td>
+                    <input type="number" id="a" name="a"/>
+                </td>
+            </tr>
+            <tr>
+                <td> b: </td>
+                <td>
+                    <input type="number" id="b" name="b"/>
+                </td>
+            </tr>
+            <tr>
+                <td> c: </td>
+                <td>
+                    <input type="number" id="c" name="c"/>
+                </td>
+            </tr>
+            <tr>
+                <td> Result: </td>
+                <td id="td_result"></td>
+            </tr>
+        </table>
+                    <button type="button" onclick="cal_max()"> MAX </button>
+                    <button type="button" onclick="cal_min()"> MIN </button>
+                    <button type="button" onclick="cal_sin()"> sin(a) </button>
+                    <button type="button" onclick="cal_cos()"> cos(a) </button>
+                    <button type="button" onclick="cal_ab()"> a^b </button>
+        </form>
+        <script>
+            function cal_max() {
+                a = parseFloat(my_form.a.value);
+                b = parseFloat(my_form.b.value);
+                c = parseFloat(my_form.c.value);
+                document.getElementById("td_result").innerText = Math.max(a, b, c);
+            }
+
+            function cal_min() {
+                a = parseFloat(my_form.a.value);
+                b = parseFloat(my_form.b.value);
+                c = parseFloat(my_form.c.value);
+                document.getElementById("td_result").innerText = Math.min(a, b, c);
+            }        
+
+            function cal_sin() {
+                a = parseFloat(my_form.a.value);
+                document.getElementById("td_result").innerText = Math.sin(a);
+            }            
+
+            function cal_cos() {
+                a = parseFloat(my_form.a.value);
+                document.getElementById("td_result").innerText = Math.cos(a);
+            }            
+
+            function cal_ab() {
+                a = parseFloat(my_form.a.value);
+                b = parseFloat(my_form.b.value);
+                document.getElementById("td_result").innerText = Math.pow(a, b);
+            }          
+        </script>
+    </body>
+</html>
