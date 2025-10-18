@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>Math function - Đào Thị Phương Thùy</title>
+</head>
+<body>
+    <form name="my_form">
+        <table border="1">
+            <tr style="background-color: aquamarine;"> 
+                <td colspan="2" align="center">The quadratic equation</td>
+            </tr>
+            <tr>
+                <td> a: </td>
+                <td><input type="number" name="a"/></td>
+            </tr>
+            <tr>
+                <td> b: </td>
+                <td><input type="number" name="b"/></td>
+            </tr>
+            <tr>
+                <td> c: </td>
+                <td><input type="number" name="c"/></td>
+            </tr>
+            <tr>
+                <td> Result: </td>
+                <td id="td_result"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="button" onclick="find_solution()">Find solution</button>
+                    <button type="button" onclick="do_clear()">Clear</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        function find_solution() {
+            a = parseFloat(document.my_form.a.value);
+            b = parseFloat(document.my_form.b.value);
+            c = parseFloat(document.my_form.c.value);
+            td_result = document.getElementById("td_result");
+
+            if (a == 0) {
+                // Phương trình bậc nhất: bx + c = 0
+                if (b == 0) {
+                    td_result.innerHTML = (c == 0) 
+                        ? '<span style="color:red">Vô số nghiệm</span>'
+                        : '<span style="color:red">Vô nghiệm</span>';
+                } else {
+                    x = -c / b;
+                    td_result.innerHTML = `<span style="color:red">x = ${x}</span>`;
+                }
+                return;
+            }
+
+            // Phương trình bậc hai: ax^2 + bx + c = 0
+            delta = b*b - 4*a*c;
+
+            if (delta > 0) {
+                x1 = (-b + Math.sqrt(delta)) / (2*a);
+                x2 = (-b - Math.sqrt(delta)) / (2*a);
+                td_result.innerHTML = `<span style="color:red">x1 = ${x1}, x2 = ${x2}</span>`;
+            } else if (delta == 0) {
+                x = -b / (2*a);
+                td_result.innerHTML = `<span style="color:red">x = ${x}</span>`;
+            } else {
+                td_result.innerHTML = '<span style="color:red">Vô nghiệm</span>';
+            }
+
+        }
+
+        function do_clear() {
+            document.getElementById("td_result").innerHTML = "";
+            document.my_form.a.focus();
+        }
+    </script>
+</body>
+</html>
