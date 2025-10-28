@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin tức Giáo dục - VnExpress</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .update-time {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        caption {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        th {
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .news-image {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .news-title {
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+        
+        .news-title:hover {
+            color: #667eea;
+        }
+        
+        .news-time {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .news-excerpt {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #d32f2f;
+            font-size: 16px;
+        }
+        
+        .read-more {
+            display: inline-block;
+            margin-top: 5px;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .read-more:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Tin tức Giáo dục VnExpress</h1>
+        <div class="update-time" id="updateTime">Đang tải...</div>
+        
+        <div class="controls">
+            <button onclick="loadNews()" id="refreshBtn">🔄 Làm mới</button>
+        </div>
+        
+        <table border="1">
+            <caption>Tin tức mới nhất</caption>
+            <thead>
+                <tr>
+                    <th style="width: 140px;">Hình ảnh</th>
+                    <th style="width: 40%;">Tiêu đề</th>
+                    <th style="width: 35%;">Nội dung</th>
+                    <th style="width: 15%;">Thời gian</th>
+                </tr>
+            </thead>
+            <tbody id="newsBody">
+                <tr>
+                    <td colspan="4" class="loading">Đang tải tin tức...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        const RSS_URL = 'https://vnexpress.net/rss/giao-duc.rss';
+        const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+        const newsBody = document.getElementById('newsBody');
+        const updateTime = document.getElementById('updateTime');
+        const refreshBtn = document.getElementById('refreshBtn');
+
+        function loadNews() {
+            // Disable button và hiển thị loading
+            refreshBtn.disabled = true;
+            refreshBtn.textContent = '⏳ Đang tải...';
+            newsBody.innerHTML = '<tr><td colspan="4" class="loading">Đang tải tin tức...</td></tr>';
+            
+            // Tạo XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", CORS_PROXY + encodeURIComponent(RSS_URL), true);
+            xhr.send();
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    try {
+                        // Parse XML từ RSS
+                        var parser = new DOMParser();
+                        var xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+                        
+                        // Lấy tất cả items
+                        var items = xmlDoc.querySelectorAll('item');
+                        
+                        if (items.length === 0) {
+                            newsBody.innerHTML = '<tr><td colspan="4" class="error">Không có tin tức nào</td></tr>';
+                            return;
+                        }
+                        
+                        // Hiển thị tin tức
+                        displayNews(items);
+                        
+                        // Cập nhật thời gian
+                        var now = new Date();
+                        updateTime.textContent = 'Cập nhật lúc: ' + now.toLocaleString('vi-VN');
+                        
+                    } catch (error) {
+                        console.error('Error parsing RSS:', error);
+                        newsBody.innerHTML = '<tr><td colspan="4" class="error">Lỗi khi xử lý dữ liệu: ' + error.message + '</td></tr>';
+                    } finally {
+                        // Enable button
+                        refreshBtn.disabled = false;
+                        refreshBtn.textContent = '🔄 Làm mới';
+                    }
+                }
+                
+                if (xhr.readyState == 4 && xhr.status != 200) {
+                    newsBody.innerHTML = '<tr><td colspan="4" class="error">Lỗi khi tải tin tức. Vui lòng thử lại!</td></tr>';
+                    refreshBtn.disabled = false;
+                    refreshBtn.textContent = '🔄 Làm mới';
+                }
+            }
+        }
+
+        function displayNews(items) {
+            // Xóa nội dung cũ
+            newsBody.innerHTML = '';
+            
+            // Lặp qua từng tin tức
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                
+                // Lấy thông tin từ RSS
+                var title = item.querySelector('title').textContent;
+                var link = item.querySelector('link').textContent;
+                var pubDate = item.querySelector('pubDate').textContent;
+                var description = item.querySelector('description').textContent;
+                
+                // Trích xuất hình ảnh từ description (có thể có hoặc không)
+                var imgMatch = description.match(/src="([^"]+)"/);
+                var imageUrl = imgMatch ? imgMatch[1] : 'https://via.placeholder.com/120x80?text=No+Image';
+                
+                // Trích xuất text từ description (loại bỏ HTML)
+                var textMatch = description.match(/<\/a><\/br>(.*?)$/);
+                var excerpt = textMatch ? textMatch[1].trim() : 'Không có mô tả';
+                // Giới hạn độ dài excerpt
+                if (excerpt.length > 150) {
+                    excerpt = excerpt.substring(0, 150) + '...';
+                }
+                
+                // Format thời gian
+                var formattedTime = getRelativeTime(pubDate);
+                
+                // Tạo các elements
+                var tr = document.createElement('tr');
+                
+                var tdImage = document.createElement('td');
+                var tdTitle = document.createElement('td');
+                var tdExcerpt = document.createElement('td');
+                var tdTime = document.createElement('td');
+                
+                // Hình ảnh
+                var img = document.createElement('img');
+                img.src = imageUrl;
+                img.className = 'news-image';
+                img.alt = title;
+                img.onerror = function() {
+                    this.src = 'https://via.placeholder.com/120x80?text=No+Image';
+                };
+                tdImage.appendChild(img);
+                
+                // Tiêu đề
+                var titleDiv = document.createElement('div');
+                titleDiv.className = 'news-title';
+                titleDiv.textContent = title;
+                titleDiv.onclick = function(url) {
+                    return function() {
+                        window.open(url, '_blank');
+                    }
+                }(link);
+                
+                var readMore = document.createElement('a');
+                readMore.href = link;
+                readMore.target = '_blank';
+                readMore.className = 'read-more';
+                readMore.textContent = '➜ Đọc thêm';
+                
+                tdTitle.appendChild(titleDiv);
+                tdTitle.appendChild(readMore);
+                
+                // Excerpt
+                var excerptDiv = document.createElement('div');
+                excerptDiv.className = 'news-excerpt';
+                excerptDiv.textContent = excerpt;
+                tdExcerpt.appendChild(excerptDiv);
+                
+                // Thời gian
+                var timeDiv = document.createElement('div');
+                timeDiv.className = 'news-time';
+                timeDiv.textContent = formattedTime;
+                tdTime.appendChild(timeDiv);
+                
+                // Append tất cả vào row
+                tr.appendChild(tdImage);
+                tr.appendChild(tdTitle);
+                tr.appendChild(tdExcerpt);
+                tr.appendChild(tdTime);
+                
+                // Append row vào tbody
+                newsBody.appendChild(tr);
+            }
+        }
+
+        function getRelativeTime(dateString) {
+            var pubDate = new Date(dateString);
+            var now = new Date();
+            var diffMs = now - pubDate;
+            var diffMins = Math.floor(diffMs / 60000);
+            var diffHours = Math.floor(diffMins / 60);
+            var diffDays = Math.floor(diffHours / 24);
+
+            if (diffMins < 1) return 'Vừa xong';
+            if (diffMins < 60) return diffMins + ' phút trước';
+            if (diffHours < 24) return diffHours + ' giờ trước';
+            if (diffDays === 1) return 'Hôm qua';
+            if (diffDays < 7) return diffDays + ' ngày trước';
+            
+            return pubDate.toLocaleDateString('vi-VN');
+        }
+
+        // Tự động load khi trang được mở
+        window.onload = function() {
+            loadNews();
+        };
+    </script>
+</body>
+</html>
