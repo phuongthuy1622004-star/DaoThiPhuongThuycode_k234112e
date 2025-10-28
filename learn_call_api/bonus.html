@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thời Tiết Việt Nam</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .header h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    
+    .header p {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .search-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+      font-size: 14px;
+    }
+    
+    select {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: #4285f4;
+    }
+    
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background: #4285f4;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background: #3367d6;
+    }
+    
+    button:active {
+      background: #2851a3;
+    }
+    
+    #result {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .temp-section {
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 20px;
+    }
+    
+    .temperature {
+      font-size: 60px;
+      font-weight: bold;
+      color: #ff6b35;
+      margin-bottom: 10px;
+    }
+    
+    .description {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .feels {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .info-card {
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #4285f4;
+    }
+    
+    .info-title {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+    
+    .info-value {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .info-extra {
+      font-size: 13px;
+      color: #888;
+      margin-top: 3px;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+    }
+    
+    .error {
+      text-align: center;
+      padding: 30px;
+      color: #d32f2f;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🌤️ Thời Tiết Hôm Nay</h1>
+      <p>Thông tin thời tiết chính xác cho các tỉnh thành Việt Nam</p>
+    </div>
+    
+    <div class="search-box">
+      <label for="province">Chọn khu vực:</label>
+      <select id="province">
+        <option value="">-- Chọn tỉnh/thành phố --</option>
+        <option value="2347719">An Giang</option>
+        <option value="20070078">Bình Dương</option>
+        <option value="20070086">Bình Phước</option>
+        <option value="2347731">Bình Thuận</option>
+        <option value="2347730">Bình Định</option>
+        <option value="20070081">Bạc Liêu</option>
+        <option value="20070087">Bắc Giang</option>
+        <option value="20070084">Bắc Kạn</option>
+        <option value="20070088">Bắc Ninh</option>
+        <option value="2347703">Bến Tre</option>
+        <option value="2347704">Cao Bằng</option>
+        <option value="20070082">Cà Mau</option>
+        <option value="2347732">Cần Thơ</option>
+        <option value="28301718">Điện Biên</option>
+        <option value="20070085">Đà Nẵng</option>
+        <option value="1252375">Đà Lạt</option>
+        <option value="2347720">Đắk Lắk</option>
+        <option value="28301719">Đắk Nông</option>
+        <option value="2347721">Đồng Nai</option>
+        <option value="2347722">Đồng Tháp</option>
+        <option value="2347733">Gia Lai</option>
+        <option value="2347727">Hà Nội</option>
+        <option value="2347728">TP. Hồ Chí Minh</option>
+        <option value="2347734">Hà Giang</option>
+        <option value="2347741">Hà Nam</option>
+        <option value="2347736">Hà Tĩnh</option>
+        <option value="2347737">Hòa Bình</option>
+        <option value="20070079">Hưng Yên</option>
+        <option value="20070080">Hải Dương</option>
+        <option value="2347707">Hải Phòng</option>
+        <option value="28301720">Hậu Giang</option>
+        <option value="2347738">Khánh Hòa</option>
+        <option value="2347723">Kiên Giang</option>
+        <option value="20070076">Kon Tum</option>
+        <option value="2347708">Lai Châu</option>
+        <option value="2347710">Long An</option>
+        <option value="2347740">Lào Cai</option>
+        <option value="2347709">Lâm Đồng</option>
+        <option value="2347718">Lạng Sơn</option>
+        <option value="20070089">Nam Định</option>
+        <option value="2347742">Nghệ An</option>
+        <option value="2347743">Ninh Bình</option>
+        <option value="2347744">Ninh Thuận</option>
+        <option value="20070091">Phú Thọ</option>
+        <option value="2347745">Phú Yên</option>
+        <option value="2347746">Quảng Bình</option>
+        <option value="2347711">Quảng Nam</option>
+        <option value="20070077">Quảng Ngãi</option>
+        <option value="2347712">Quảng Ninh</option>
+        <option value="2347747">Quảng Trị</option>
+        <option value="2347748">Sóc Trăng</option>
+        <option value="2347713">Sơn La</option>
+        <option value="2347715">Thanh Hóa</option>
+        <option value="2347716">Thái Bình</option>
+        <option value="20070083">Thái Nguyên</option>
+        <option value="2347749">Thừa Thiên Huế</option>
+        <option value="2347717">Tiền Giang</option>
+        <option value="2347750">Trà Vinh</option>
+        <option value="2347751">Tuyên Quang</option>
+        <option value="2347714">Tây Ninh</option>
+        <option value="2347752">Vĩnh Long</option>
+        <option value="20070090">Vĩnh Phúc</option>
+        <option value="2347729">Vũng Tàu</option>
+        <option value="2347753">Yên Bái</option>
+      </select>
+      <button id="btn">Xem thời tiết</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById('btn').addEventListener('click', async () => {
+      const id = document.getElementById('province').value;
+      const resultDiv = document.getElementById('result');
+      
+      if (!id) {
+        resultDiv.innerHTML = "<p class='error'>⚠️ Vui lòng chọn tỉnh/thành phố</p>";
+        return;
+      }
+
+      resultDiv.innerHTML = "<div class='loading'>Đang tải dữ liệu...</div>";
+
+      try {
+        const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://utils3.cnnd.vn/ajax/weatherinfo/${id}.htm`)}`;
+        const response = await fetch(apiUrl);
+        const wrapped = await response.json();
+        const data = JSON.parse(wrapped.contents);
+        const info = data.Data.data.datainfo;
+
+        resultDiv.innerHTML = `
+          <div class="temp-section">
+            <div class="temperature">${info.temperature}°${info.degree}</div>
+            <div class="description">${info.status}</div>
+            <div class="feels">Cảm giác như ${info.feels_like}°${info.degree}</div>
+          </div>
+          
+          <div class="info-grid">
+            <div class="info-card">
+              <div class="info-title">💧 Độ ẩm</div>
+              <div class="info-value">${info.humidity}</div>
+            </div>
+            
+            <div class="info-card">
+              <div class="info-title">☀️ Chỉ số UV</div>
+              <div class="info-value">${info.UV_index.index}</div>
+              <div class="info-extra">${info.UV_index.status}</div>
+            </div>
+            
+            <div class="info-card">
+              <div class="info-title">💨 Gió</div>
+              <div class="info-value">${info.wind.index} ${info.wind.unit}</div>
+              <div class="info-extra">${info.windDirection}</div>
+            </div>
+            
+            <div class="info-card">
+              <div class="info-title">🏭 Chất lượng KK</div>
+              <div class="info-value">AQI ${info.air.aqi}</div>
+              <div class="info-extra">${info.air.status}</div>
+            </div>
+            
+            <div class="info-card">
+              <div class="info-title">🌅 Bình minh</div>
+              <div class="info-value">${info.sunrise}</div>
+            </div>
+            
+            <div class="info-card">
+              <div class="info-title">🌇 Hoàng hôn</div>
+              <div class="info-value">${info.sunset}</div>
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        console.error(err);
+        resultDiv.innerHTML = "<div class='error'>❌ Không thể tải dữ liệu. Vui lòng thử lại.</div>";
+      }
+    });
+  </script>
+</body>
+</html>

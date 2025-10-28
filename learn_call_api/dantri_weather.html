@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title> Tiêu đề trang </title>
+        <script type="text/javascript">
+            var xhr=new XMLHttpRequest()
+            xhr.open("get","https://webapi.dantri.com.vn/misc",true)
+            xhr.send();
+            xhr.onreadystatechange=function()
+                {
+                    if (xhr.readyState==4 && xhr.status==200) // Level 2: xong XML
+                    {
+                        string_json.xhr.responseText
+                        // my_div.innerText=JSON.string_json
+                        object_json=JSON.parse(string_json)
+                        weather=object_json.weathers
+
+                        display_weather(weathers)
+                    }   
+                    {
+                        function display_weather(weathers)
+                        {
+                            for (i=0; i<weathers.length;i++)
+                        {
+                            weather=weathers[i]
+                            tr=document.createElement("tr")
+
+                            td_city=document.createElement("td")
+                            td_temp=document.createElement("td")
+                            td_status=document.createElement("td")
+                            td_icon=document.createElement("td")
+
+                            td_city.innerText=weather.name
+                            td_temp.innerText=weather.temperature
+                            td_status.innerText=weather.clouds 
+                            // td_icon.innerText=weather.icon
+                            icon="https://openweathermap.org/img/wn/04d@2x.png"
+                            img_icon=document.createElement("img")
+                            img_icon.setAttribute("src",icon)
+                            td_icon.appendChild(img_icon)
+
+                            tr.appendChild(td_city)
+                            tr.appendChild(td_temp)
+                            tr.appendChild(td_status)
+                            tr.appendChild(td_icon)
+
+                            tbody.appendChild(tr)
+                        }
+                        }
+                    }
+                }
+        </script>
+    </head>
+    <body>
+        <div>
+
+        </div>
+        <table border="1">
+            <caption>
+                Weather:
+            </caption>
+            <thead>
+                <tr>
+                    <th>City/Province</th>
+                    <th>Tempreature</th>
+                    <th>Status</th>
+                    <th>Icon</th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>
+
