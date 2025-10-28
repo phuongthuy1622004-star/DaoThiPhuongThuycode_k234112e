@@ -237,8 +237,32 @@
             // Xóa nội dung cũ
             newsBody.innerHTML = '';
             
-            // Lặp qua từng tin tức
+            // Lấy ngày mới nhất từ tin đầu tiên
+            var latestDate = new Date(items[0].querySelector('pubDate').textContent);
+            var latestDay = latestDate.toDateString();
+            
+            // Lọc chỉ lấy tin của ngày mới nhất
+            var todayNews = [];
             for (var i = 0; i < items.length; i++) {
+                var itemDate = new Date(items[i].querySelector('pubDate').textContent);
+                if (itemDate.toDateString() === latestDay) {
+                    todayNews.push(items[i]);
+                }
+            }
+            
+            // Hiển thị thông báo số lượng tin
+            if (todayNews.length === 0) {
+                newsBody.innerHTML = '<tr><td colspan="4" class="error">Không có tin tức mới trong ngày hôm nay</td></tr>';
+                return;
+            }
+            
+            // Cập nhật caption với ngày
+            var caption = document.querySelector('caption');
+            caption.textContent = 'Tin tức ngày ' + latestDate.toLocaleDateString('vi-VN') + ' (' + todayNews.length + ' tin)';
+            
+            // Lặp qua từng tin tức của ngày mới nhất
+            for (var i = 0; i < todayNews.length; i++) {
+                var item = todayNews[i];
                 var item = items[i];
                 
                 // Lấy thông tin từ RSS
